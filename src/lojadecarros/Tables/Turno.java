@@ -1,4 +1,4 @@
-package LojaDeCarros.Tables;
+package lojadecarros.Tables;
 
 import java.time.LocalTime;
 import java.util.List;

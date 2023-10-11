@@ -1,4 +1,4 @@
-package LojaDeCarros.Tables;
+package lojadecarros.Tables;
 
 public class FormaDePagamento {
     private int id;

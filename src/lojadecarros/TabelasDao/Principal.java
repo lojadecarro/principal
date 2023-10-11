@@ -1,8 +1,8 @@
-package LojaDeCarros.TabelasDao;
+package lojadecarros.TabelasDao;
 
 import java.sql.SQLException;
 
-import LojaDeCarros.Tables.Marca;
+import lojadecarros.Tables.Marca;
 
 public class Principal{
     public static void main(String[] args) throws SQLException {

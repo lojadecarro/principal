@@ -1,4 +1,4 @@
-package LojaDeCarros.Tables;
+package lojadecarros.Tables;
 
 public class Escala {
     private int id;

@@ -1,4 +1,4 @@
-package LojaDeCarros.Inserts;
+package lojadecarros.Inserts;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
