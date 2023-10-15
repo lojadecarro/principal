@@ -1,20 +1,18 @@
-package lojadecarros.TabelasDao;
+package lojadecarros.TabelasDao.Cargo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
-import lojadecarros.Tables.Marca;
+import lojadecarros.TabelasDao.Conexao;
+import lojadecarros.Tables.Cargo;
 
 // DAO = Data Access Object
-public class MarcaDAO {
-    public Marca create(Marca marca) throws SQLException {
+public class CargoDAO {
+    public Cargo create(Cargo cargo) throws SQLException {
         String sql = """
-        INSERT INTO marca (nome)
+        INSERT INTO cargo (nome)
         VALUES (?);
         """;
         try (
@@ -22,24 +20,24 @@ public class MarcaDAO {
             PreparedStatement statement = connection
             .prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         ) {
-            statement.setString(1, marca.getNome());
+            statement.setString(1, cargo.getNome());
             statement.executeUpdate();
 
             ResultSet rs = statement.getGeneratedKeys();
 
             if(rs.next()) {
-                marca.setId(rs.getInt(1));
+                cargo.setId(rs.getInt(1));
             }
 
             rs.close();
 
-            return marca;
+            return cargo;
         }
     }
 
-    public Marca update(Marca marca) throws SQLException {
+    public Cargo update(Cargo cargo) throws SQLException {
         String sql = """
-        UPDATE marca
+        UPDATE cargo
         SET nome = ?
         WHERE id = ?;
         """;
@@ -49,12 +47,12 @@ public class MarcaDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
-            statement.setString(1, marca.getNome());
-            statement.setInt(2, marca.getId());
+            statement.setString(1, cargo.getNome());
+            statement.setInt(2, cargo.getId());
             int linhasAfetadas = statement.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                return marca;
+                return cargo;
             }
             return null;
 
@@ -64,7 +62,7 @@ public class MarcaDAO {
     }
 
     public void delete(Integer id) {
-        String sql = "DELETE FROM marca WHERE id = ?;";
+        String sql = "DELETE FROM cargo WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -77,12 +75,12 @@ public class MarcaDAO {
         }
     }
 
-    public void delete(Marca marca) {
-        delete(marca.getId());
+    public void delete(Cargo cargo) {
+        delete(cargo.getId());
     }
 
-    public Marca findById(Integer id) {
-        String sql = "SELECT * FROM marca WHERE id = ?;";
+    public Cargo findById(Integer id) {
+        String sql = "SELECT * FROM cargo WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -93,7 +91,7 @@ public class MarcaDAO {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                return resultSetToMarca(rs);
+                return resultSetToCargo(rs);
             }
 
             rs.close();
@@ -106,12 +104,10 @@ public class MarcaDAO {
         return null;
     }
 
-    private Marca resultSetToMarca(ResultSet rs) throws SQLException {
-        return new Marca(
+    private Cargo resultSetToCargo(ResultSet rs) throws SQLException {
+        return new Cargo(
             rs.getInt("id"),
             rs.getString("nome")
         );
     }
 }
-
-    
