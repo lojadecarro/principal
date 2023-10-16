@@ -1,5 +1,6 @@
 package Tables;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaCor {
@@ -10,10 +11,12 @@ public class CategoriaCor {
     public CategoriaCor(int id, String nome) {
         this.id = id;
         this.nome = nome;
+        this.cores = new ArrayList<>();
     }
 
     public CategoriaCor(String nome) {
         this.nome = nome;
+        this.cores = new ArrayList<>();
     }
 
     public void addCor(Cor cor){

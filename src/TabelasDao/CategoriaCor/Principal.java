@@ -7,12 +7,12 @@ public class Principal {
     public static void main(String[] args) throws SQLException {
         CategoriaCorDAO categoriaCorDao = new CategoriaCorDAO();
         
-        CategoriaCor categoriaCor = new CategoriaCor(0, "Turquesa");
+        CategoriaCor categoriaCor = new CategoriaCor(5, "Cinzento");
 
         CategoriaCor categoriaCorCriada = categoriaCorDao.create(categoriaCor);
 
         System.out.println(categoriaCorCriada.getId());
 
-        System.out.println(categoriaCorDao.findById(1));
+        System.out.println(categoriaCorDao.findById(5));
     }
 }
