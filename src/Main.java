@@ -1,10 +1,8 @@
-package lojadecarros;
-
 import java.sql.SQLException;
 
 import org.mariadb.jdbc.Connection;
 
-import lojadecarros.TabelasDao.Conexao;
+import TabelasDao.Conexao;
 
 public class Main {
     public static void main(String[] args) throws SQLException {

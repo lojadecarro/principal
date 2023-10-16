@@ -1,4 +1,4 @@
-package lojadecarros.Tables;
+package Tables;
 
 import java.sql.Date;
 import java.util.List;

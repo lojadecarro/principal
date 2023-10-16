@@ -13,7 +13,7 @@ public class CorDAO {
     public Cor create(Cor cor) throws SQLException {
         String sql = """
         INSERT INTO cor (id_categoria_cor, nome)
-        VALUES (?);
+        VALUES (?, ?);
         """;
         try (
             Connection connection = Conexao.getConnection();

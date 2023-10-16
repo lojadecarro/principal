@@ -1,4 +1,4 @@
-package lojadecarros.Tables;
+package Tables;
 
 import java.util.List;
 
