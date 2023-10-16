@@ -1,17 +1,17 @@
-package lojadecarros.TabelasDao.CategoriaModelo;
+package TabelasDao.CategoriaCor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import lojadecarros.TabelasDao.Conexao;
-import lojadecarros.Tables.CategoriaModelo;
+import TabelasDao.Conexao;
+import Tables.CategoriaCor;
 
-public class CategoriaModeloDAO {
-    public CategoriaModelo create(CategoriaModelo categoriaModelo) throws SQLException {
+public class CategoriaCorDAO {
+    public CategoriaCor create(CategoriaCor categoriaCor) throws SQLException {
         String sql = """
-        INSERT INTO categoria_modelo (nome)
+        INSERT INTO categoria_cor (nome)
         VALUES (?);
         """;
         try (
@@ -19,24 +19,24 @@ public class CategoriaModeloDAO {
             PreparedStatement statement = connection
             .prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         ) {
-            statement.setString(1, categoriaModelo.getNome());
+            statement.setString(1, categoriaCor.getNome());
             statement.executeUpdate();
 
             ResultSet rs = statement.getGeneratedKeys();
 
             if(rs.next()) {
-                categoriaModelo.setId(rs.getInt(1));
+                categoriaCor.setId(rs.getInt(1));
             }
 
             rs.close();
 
-            return categoriaModelo;
+            return categoriaCor;
         }
     }
 
-    public CategoriaModelo update(CategoriaModelo categoriaModelo) throws SQLException {
+    public CategoriaCor update(CategoriaCor categoriaCor) throws SQLException {
         String sql = """
-        UPDATE categoria_modelo
+        UPDATE categoria_cor
         SET nome = ?
         WHERE id = ?;
         """;
@@ -46,12 +46,12 @@ public class CategoriaModeloDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
-            statement.setString(1, categoriaModelo.getNome());
-            statement.setInt(2, categoriaModelo.getId());
+            statement.setString(1, categoriaCor.getNome());
+            statement.setInt(2, categoriaCor.getId());
             int linhasAfetadas = statement.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                return categoriaModelo;
+                return categoriaCor;
             }
             return null;
 
@@ -61,7 +61,7 @@ public class CategoriaModeloDAO {
     }
 
     public void delete(Integer id) {
-        String sql = "DELETE FROM categoria_modelo WHERE id = ?;";
+        String sql = "DELETE FROM categoria_cor WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -74,12 +74,12 @@ public class CategoriaModeloDAO {
         }
     }
 
-    public void delete(CategoriaModelo categoriaModelo) {
-        delete(categoriaModelo.getId());
+    public void delete(CategoriaCor categoriaCor) {
+        delete(categoriaCor.getId());
     }
 
-    public CategoriaModelo findById(Integer id) {
-        String sql = "SELECT * FROM categoria_modelo WHERE id = ?;";
+    public CategoriaCor findById(Integer id) {
+        String sql = "SELECT * FROM categoria_cor WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -90,7 +90,7 @@ public class CategoriaModeloDAO {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                return resultSetToCategoriaModelo(rs);
+                return resultSetToCategoriaCor(rs);
             }
 
             rs.close();
@@ -103,8 +103,8 @@ public class CategoriaModeloDAO {
         return null;
     }
 
-    private CategoriaModelo resultSetToCategoriaModelo(ResultSet rs) throws SQLException {
-        return new CategoriaModelo(
+    private CategoriaCor resultSetToCategoriaCor(ResultSet rs) throws SQLException {
+        return new CategoriaCor(
             rs.getInt("id"),
             rs.getString("nome")
         );

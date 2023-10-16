@@ -1,7 +1,7 @@
-package lojadecarros.TabelasDao.CategoriaCor;
+package TabelasDao.CategoriaCor;
 
 import java.sql.SQLException;
-import lojadecarros.Tables.CategoriaCor;
+import Tables.CategoriaCor;
 
 public class Principal {
     public static void main(String[] args) throws SQLException {

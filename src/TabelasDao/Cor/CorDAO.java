@@ -1,12 +1,12 @@
-package lojadecarros.TabelasDao.Cor;
+package TabelasDao.Cor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import lojadecarros.TabelasDao.Conexao;
-import lojadecarros.Tables.Cor;
+import TabelasDao.Conexao;
+import Tables.Cor;
 
 
 public class CorDAO {

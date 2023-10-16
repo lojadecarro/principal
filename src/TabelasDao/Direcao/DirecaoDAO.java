@@ -1,44 +1,43 @@
-package lojadecarros.TabelasDao.Marca;
+package TabelasDao.Direcao; 
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import lojadecarros.TabelasDao.Conexao;
-import lojadecarros.Tables.Marca;
+import TabelasDao.Conexao;
+import Tables.Direcao;
 
-// DAO = Data Access Object
-public class MarcaDAO {
-    public Marca create(Marca marca) throws SQLException{
+public class DirecaoDAO { 
+
+    public Direcao create(Direcao direcao) throws SQLException { 
         String sql = """
-        INSERT INTO marca (nome)
+        INSERT INTO direcao (tipo)
         VALUES (?);
         """;
         try (
             Connection connection = Conexao.getConnection();
-            PreparedStatement statement = connection
-            .prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         ) {
-            statement.setString(1, marca.getNome());
+            statement.setString(1, direcao.getTipo());
             statement.executeUpdate();
 
             ResultSet rs = statement.getGeneratedKeys();
 
-            if(rs.next()) {
-                marca.setId(rs.getInt(1));
+            if (rs.next()) {
+                direcao.setId(rs.getInt(1));
             }
 
             rs.close();
 
-            return marca;
+            return direcao;
         }
     }
 
-    public Marca update(Marca marca) throws SQLException{
+    public Direcao update(Direcao direcao) throws SQLException { 
         String sql = """
-        UPDATE marca
-        SET nome = ?
+        UPDATE direcao
+        SET tipo = ?
         WHERE id = ?;
         """;
 
@@ -47,22 +46,22 @@ public class MarcaDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
-            statement.setString(1, marca.getNome());
-            statement.setInt(2, marca.getId());
+            statement.setString(1, direcao.getTipo());
+            statement.setInt(2, direcao.getId());
             int linhasAfetadas = statement.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                return marca;
+                return direcao;
             }
             return null;
 
-            } catch (SQLException e) {
-                return null;
-            }
+        } catch (SQLException e) {
+            return null;
+        }
     }
 
     public void delete(Integer id) {
-        String sql = "DELETE FROM marca WHERE id = ?;";
+        String sql = "DELETE FROM direcao WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -75,12 +74,12 @@ public class MarcaDAO {
         }
     }
 
-    public void delete(Marca marca) {
-        delete(marca.getId());
+    public void delete(Direcao direcao) { 
+        delete(direcao.getId());
     }
 
-    public Marca findById(Integer id) {
-        String sql = "SELECT * FROM marca WHERE id = ?;";
+    public Direcao findById(Integer id) { 
+        String sql = "SELECT * FROM direcao WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -91,7 +90,7 @@ public class MarcaDAO {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                return resultSetToMarca(rs);
+                return resultSetToDirecao(rs);
             }
 
             rs.close();
@@ -104,12 +103,10 @@ public class MarcaDAO {
         return null;
     }
 
-    private Marca resultSetToMarca(ResultSet rs) throws SQLException {
-        return new Marca(
+    private Direcao resultSetToDirecao(ResultSet rs) throws SQLException { 
+        return new Direcao(
             rs.getInt("id"),
-            rs.getString("nome")
+            rs.getString("tipo")
         );
     }
 }
-
-    

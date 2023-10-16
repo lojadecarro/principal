@@ -1,4 +1,4 @@
-package lojadecarros.TabelasDao;
+package TabelasDao;
 
 import org.mariadb.jdbc.Connection;
 

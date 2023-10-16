@@ -1,18 +1,17 @@
-package lojadecarros.TabelasDao.Cargo;
+package TabelasDao.CategoriaModelo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import lojadecarros.TabelasDao.Conexao;
-import lojadecarros.Tables.Cargo;
+import TabelasDao.Conexao;
+import Tables.CategoriaModelo;
 
-// DAO = Data Access Object
-public class CargoDAO {
-    public Cargo create(Cargo cargo) throws SQLException {
+public class CategoriaModeloDAO {
+    public CategoriaModelo create(CategoriaModelo categoriaModelo) throws SQLException {
         String sql = """
-        INSERT INTO cargo (nome)
+        INSERT INTO categoria_modelo (nome)
         VALUES (?);
         """;
         try (
@@ -20,24 +19,24 @@ public class CargoDAO {
             PreparedStatement statement = connection
             .prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         ) {
-            statement.setString(1, cargo.getNome());
+            statement.setString(1, categoriaModelo.getNome());
             statement.executeUpdate();
 
             ResultSet rs = statement.getGeneratedKeys();
 
             if(rs.next()) {
-                cargo.setId(rs.getInt(1));
+                categoriaModelo.setId(rs.getInt(1));
             }
 
             rs.close();
 
-            return cargo;
+            return categoriaModelo;
         }
     }
 
-    public Cargo update(Cargo cargo) throws SQLException {
+    public CategoriaModelo update(CategoriaModelo categoriaModelo) throws SQLException {
         String sql = """
-        UPDATE cargo
+        UPDATE categoria_modelo
         SET nome = ?
         WHERE id = ?;
         """;
@@ -47,12 +46,12 @@ public class CargoDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
-            statement.setString(1, cargo.getNome());
-            statement.setInt(2, cargo.getId());
+            statement.setString(1, categoriaModelo.getNome());
+            statement.setInt(2, categoriaModelo.getId());
             int linhasAfetadas = statement.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                return cargo;
+                return categoriaModelo;
             }
             return null;
 
@@ -62,7 +61,7 @@ public class CargoDAO {
     }
 
     public void delete(Integer id) {
-        String sql = "DELETE FROM cargo WHERE id = ?;";
+        String sql = "DELETE FROM categoria_modelo WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -75,12 +74,12 @@ public class CargoDAO {
         }
     }
 
-    public void delete(Cargo cargo) {
-        delete(cargo.getId());
+    public void delete(CategoriaModelo categoriaModelo) {
+        delete(categoriaModelo.getId());
     }
 
-    public Cargo findById(Integer id) {
-        String sql = "SELECT * FROM cargo WHERE id = ?;";
+    public CategoriaModelo findById(Integer id) {
+        String sql = "SELECT * FROM categoria_modelo WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -91,7 +90,7 @@ public class CargoDAO {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                return resultSetToCargo(rs);
+                return resultSetToCategoriaModelo(rs);
             }
 
             rs.close();
@@ -104,8 +103,8 @@ public class CargoDAO {
         return null;
     }
 
-    private Cargo resultSetToCargo(ResultSet rs) throws SQLException {
-        return new Cargo(
+    private CategoriaModelo resultSetToCategoriaModelo(ResultSet rs) throws SQLException {
+        return new CategoriaModelo(
             rs.getInt("id"),
             rs.getString("nome")
         );

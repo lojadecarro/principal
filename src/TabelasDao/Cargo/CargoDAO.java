@@ -1,17 +1,18 @@
-package lojadecarros.TabelasDao.CategoriaCor;
+package TabelasDao.Cargo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import lojadecarros.TabelasDao.Conexao;
-import lojadecarros.Tables.CategoriaCor;
+import TabelasDao.Conexao;
+import Tables.Cargo;
 
-public class CategoriaCorDAO {
-    public CategoriaCor create(CategoriaCor categoriaCor) throws SQLException {
+// DAO = Data Access Object
+public class CargoDAO {
+    public Cargo create(Cargo cargo) throws SQLException {
         String sql = """
-        INSERT INTO categoria_cor (nome)
+        INSERT INTO cargo (nome)
         VALUES (?);
         """;
         try (
@@ -19,24 +20,24 @@ public class CategoriaCorDAO {
             PreparedStatement statement = connection
             .prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         ) {
-            statement.setString(1, categoriaCor.getNome());
+            statement.setString(1, cargo.getNome());
             statement.executeUpdate();
 
             ResultSet rs = statement.getGeneratedKeys();
 
             if(rs.next()) {
-                categoriaCor.setId(rs.getInt(1));
+                cargo.setId(rs.getInt(1));
             }
 
             rs.close();
 
-            return categoriaCor;
+            return cargo;
         }
     }
 
-    public CategoriaCor update(CategoriaCor categoriaCor) throws SQLException {
+    public Cargo update(Cargo cargo) throws SQLException {
         String sql = """
-        UPDATE categoria_cor
+        UPDATE cargo
         SET nome = ?
         WHERE id = ?;
         """;
@@ -46,12 +47,12 @@ public class CategoriaCorDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
         ) {
 
-            statement.setString(1, categoriaCor.getNome());
-            statement.setInt(2, categoriaCor.getId());
+            statement.setString(1, cargo.getNome());
+            statement.setInt(2, cargo.getId());
             int linhasAfetadas = statement.executeUpdate();
 
             if (linhasAfetadas > 0) {
-                return categoriaCor;
+                return cargo;
             }
             return null;
 
@@ -61,7 +62,7 @@ public class CategoriaCorDAO {
     }
 
     public void delete(Integer id) {
-        String sql = "DELETE FROM categoria_cor WHERE id = ?;";
+        String sql = "DELETE FROM cargo WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -74,12 +75,12 @@ public class CategoriaCorDAO {
         }
     }
 
-    public void delete(CategoriaCor categoriaCor) {
-        delete(categoriaCor.getId());
+    public void delete(Cargo cargo) {
+        delete(cargo.getId());
     }
 
-    public CategoriaCor findById(Integer id) {
-        String sql = "SELECT * FROM categoria_cor WHERE id = ?;";
+    public Cargo findById(Integer id) {
+        String sql = "SELECT * FROM cargo WHERE id = ?;";
 
         try (
             Connection connection = Conexao.getConnection();
@@ -90,7 +91,7 @@ public class CategoriaCorDAO {
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
-                return resultSetToCategoriaCor(rs);
+                return resultSetToCargo(rs);
             }
 
             rs.close();
@@ -103,8 +104,8 @@ public class CategoriaCorDAO {
         return null;
     }
 
-    private CategoriaCor resultSetToCategoriaCor(ResultSet rs) throws SQLException {
-        return new CategoriaCor(
+    private Cargo resultSetToCargo(ResultSet rs) throws SQLException {
+        return new Cargo(
             rs.getInt("id"),
             rs.getString("nome")
         );

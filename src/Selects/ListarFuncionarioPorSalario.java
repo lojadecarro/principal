@@ -1,4 +1,4 @@
-package lojadecarros.Selects;
+package Selects;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
