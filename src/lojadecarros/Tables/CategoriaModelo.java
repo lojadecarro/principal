@@ -4,15 +4,15 @@ import java.util.List;
 
 public class CategoriaModelo {
     private int id;
-    private int nome;
+    private String nome;
     private List<Modelo> modelos;
 
-    public CategoriaModelo(int id, int nome) {
+    public CategoriaModelo(int id, String nome) {
         this.id = id;
         this.nome = nome;
     }
 
-    public CategoriaModelo(int nome) {
+    public CategoriaModelo(String nome) {
         this.nome = nome;
     }
 
@@ -24,11 +24,15 @@ public class CategoriaModelo {
         return id;
     }
 
-    public int getNome() {
+    public String getNome() {
         return nome;
     }
 
-    public void setNome(int nome) {
+    public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 }
