@@ -1,6 +1,7 @@
 package Tables;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Cliente extends Pessoa{
@@ -8,11 +9,11 @@ public class Cliente extends Pessoa{
     private List<Compra> vendas;
     private List<TesteDrive> testes_drive;
     
-    public Cliente(int id, String nome, String email, int contato, int cpf, Date data_nascimento, String endereco) {
+    public Cliente(int id, String nome, String email, String contato, String cpf, LocalDate data_nascimento, String endereco) {
         super(id, nome, email, contato, cpf, data_nascimento, endereco);
     }
 
-    public Cliente(String nome, String email, int contato, int cpf, Date data_nascimento, String endereco) {
+    public Cliente(String nome, String email, String contato, String cpf, LocalDate data_nascimento, String endereco) {
         super(nome, email, contato, cpf, data_nascimento, endereco);
     }
 
