@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import TabelasDao.Conexao;
-import Tables.Advertencia;
 import Tables.Pessoa;
 
 public class PessoaDAO {
@@ -23,8 +22,8 @@ public class PessoaDAO {
         ) {
             statement.setString(1, pessoa.getNome());
             statement.setString(2, pessoa.getEmail());
-            statement.setInt(3, pessoa.getContato());
-            statement.setInt(4, pessoa.getCpf());
+            statement.setString(3, pessoa.getContato());
+            statement.setString(4, pessoa.getCpf());
             statement.setDate(5, Date.valueOf(pessoa.getData_nascimento()));
             statement.setString(6, pessoa.getEndereco());
             statement.setString(7, pessoa.getComplemento());
@@ -44,7 +43,7 @@ public class PessoaDAO {
 
     public Pessoa update(Pessoa pessoa) throws SQLException {
         String sql = """
-            UPDATE pessoas SET nome = ?, email = ?, contato = ?, 
+            UPDATE pessoa SET nome = ?, email = ?, contato = ?, 
             cpf = ?, data_nascimento = ?, endereco = ?, complemento = ?, 
             WHERE id = ?;
             """;
@@ -56,8 +55,8 @@ public class PessoaDAO {
         ){
             statement.setString(1, pessoa.getNome());
             statement.setString(2, pessoa.getEmail());
-            statement.setInt(3, pessoa.getContato());
-            statement.setInt(4, pessoa.getCpf());
+            statement.setString(3, pessoa.getContato());
+            statement.setString(4, pessoa.getCpf());
             statement.setDate(5, Date.valueOf(pessoa.getData_nascimento()));
             statement.setString(6, pessoa.getEndereco());
             statement.setString(7, pessoa.getComplemento());
@@ -68,9 +67,11 @@ public class PessoaDAO {
             if (rowsAffected > 0) {
                 return pessoa;
             }
-        }
+            return null;
         
-        return null;
+        } catch (SQLException e){
+            return null;
+        }
     }
  
     public void delete(Integer id) {
@@ -121,8 +122,8 @@ public class PessoaDAO {
             rs.getInt("id"),
             rs.getString("nome"),
             rs.getString("email"),
-            rs.getInt("contato"),
-            rs.getInt("cpf"),
+            rs.getString("contato"),
+            rs.getString("cpf"),
             rs.getDate("data_nascimento").toLocalDate(),
             rs.getString("endereco")
         );

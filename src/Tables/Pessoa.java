@@ -1,21 +1,20 @@
 package Tables;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public abstract class Pessoa {
+public class Pessoa {
     protected int id;
     protected String nome;
     protected String email;
-    protected int contato;
-    protected int cpf;
+    protected String contato;
+    protected String cpf;
     protected LocalDate data_nascimento;
     protected String endereco;
     protected String complemento;
     protected LocalDateTime data_registro;
 
-    public Pessoa(int id, String nome, String email, int contato, int cpf, LocalDate data_nascimento, String endereco) {
+    public Pessoa(int id, String nome, String email, String contato, String cpf, LocalDate data_nascimento, String endereco) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -26,7 +25,7 @@ public abstract class Pessoa {
         data_registro = LocalDateTime.now();
     }
 
-    public Pessoa(String nome, String email, int contato, int cpf, LocalDate data_nascimento, String endereco) {
+    public Pessoa(String nome, String email, String contato, String cpf, LocalDate data_nascimento, String endereco) {
         this.nome = nome;
         this.email = email;
         this.contato = contato;
@@ -52,7 +51,7 @@ public abstract class Pessoa {
         return email;
     }
 
-    public int getContato() {
+    public String getContato() {
         return contato;
     }
 
@@ -68,7 +67,7 @@ public abstract class Pessoa {
         return complemento;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
@@ -80,7 +79,7 @@ public abstract class Pessoa {
         this.email = email;
     }
 
-    public void setContato(int contato) {
+    public void setContato(String contato) {
         this.contato = contato;
     }
 

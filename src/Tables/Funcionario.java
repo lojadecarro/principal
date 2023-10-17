@@ -4,18 +4,19 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Funcionario extends Pessoa{
+
+    private Cargo cargo;
+    private Turno turno;
+    private Escala escala;
     private double salario_fixo;
     private double comissao;
     private double horas_extras;
     private double horas_atrasadas;
-    private Cargo cargo;
-    private Turno turno;
-    private Escala escala;
     private List<Advertencia> advertencias;
     private List<Compra> compras;
     private List<Venda> vendas;
 
-    public Funcionario(int id, String nome, String email, int contato, int cpf, LocalDate data_nascimento, String endereco, double salario_fixo, Cargo cargo, Turno turno, Escala escala){
+    public Funcionario(int id, Cargo cargo, Turno turno, Escala escala, String nome, String email, String contato, String cpf, LocalDate data_nascimento, String endereco, double salario_fixo){
         super(id, nome, email, contato, cpf, data_nascimento, endereco);
         this.salario_fixo = salario_fixo;
         setCargo(cargo);
@@ -28,7 +29,7 @@ public class Funcionario extends Pessoa{
         turno.addFuncionario(this);
     }
 
-    public Funcionario(String nome, String email, int contato, int cpf, LocalDate data_nascimento, String endereco, double salario_fixo, Cargo cargo, Turno turno, Escala escala){
+    public Funcionario(Cargo cargo, Turno turno, Escala escala, String nome, String email, String contato, String cpf, LocalDate data_nascimento, String endereco, double salario_fixo){
         super(nome, email, contato, cpf, data_nascimento, endereco);
         this.salario_fixo = salario_fixo;
         setCargo(cargo);
@@ -40,6 +41,16 @@ public class Funcionario extends Pessoa{
         cargo.addFuncionario(this);
         turno.addFuncionario(this);
     }
+
+    //Método criado para o resultSetToFuncionario
+    public Funcionario(int id, int idcargo, int idturno, int idescala, String nome, String email, String contato, String cpf, LocalDate data_nascimento, String endereco, double salario_fixo){
+        super(id, nome, email, contato, cpf, data_nascimento, endereco);
+        this.cargo.setId(idcargo);
+        this.turno.setId(idturno);
+        this.escala.setId(idescala);
+    }
+
+    
 
     //TODO
     public double calcularPagamento(){
@@ -74,6 +85,18 @@ public class Funcionario extends Pessoa{
         return horas_atrasadas;
     }
 
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public Turno getTurno() {
+        return turno;
+    }
+
+    public Escala getEscala() {
+        return escala;
+    }
+
     public void setSalario_fixo(double salario_fixo) {
         this.salario_fixo = salario_fixo;
     }
@@ -100,5 +123,17 @@ public class Funcionario extends Pessoa{
 
     public void setEscala(Escala escala) {
         this.escala = escala;
+    }
+
+    public int getIdCargo(){
+        return cargo.getId();
+    }
+
+    public int getIdTurno(){
+        return turno.getId();
+    }
+
+    public int getIdEscala(){
+        return escala.getId();
     }
 }
