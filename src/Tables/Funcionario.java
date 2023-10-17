@@ -1,6 +1,6 @@
 package Tables;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Funcionario extends Pessoa{
@@ -15,7 +15,7 @@ public class Funcionario extends Pessoa{
     private List<Compra> compras;
     private List<Venda> vendas;
 
-    public Funcionario(int id, String nome, String email, int contato, int cpf, Date data_nascimento, String endereco, double salario_fixo, Cargo cargo, Turno turno, Escala escala){
+    public Funcionario(int id, String nome, String email, int contato, int cpf, LocalDate data_nascimento, String endereco, double salario_fixo, Cargo cargo, Turno turno, Escala escala){
         super(id, nome, email, contato, cpf, data_nascimento, endereco);
         this.salario_fixo = salario_fixo;
         setCargo(cargo);
@@ -28,7 +28,7 @@ public class Funcionario extends Pessoa{
         turno.addFuncionario(this);
     }
 
-    public Funcionario(String nome, String email, int contato, int cpf, Date data_nascimento, String endereco, double salario_fixo, Cargo cargo, Turno turno, Escala escala){
+    public Funcionario(String nome, String email, int contato, int cpf, LocalDate data_nascimento, String endereco, double salario_fixo, Cargo cargo, Turno turno, Escala escala){
         super(nome, email, contato, cpf, data_nascimento, endereco);
         this.salario_fixo = salario_fixo;
         setCargo(cargo);

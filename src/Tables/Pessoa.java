@@ -1,6 +1,7 @@
 package Tables;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public abstract class Pessoa {
@@ -9,12 +10,12 @@ public abstract class Pessoa {
     protected String email;
     protected int contato;
     protected int cpf;
-    protected Date data_nascimento;
+    protected LocalDate data_nascimento;
     protected String endereco;
     protected String complemento;
     protected LocalDateTime data_registro;
 
-    public Pessoa(int id, String nome, String email, int contato, int cpf, Date data_nascimento, String endereco) {
+    public Pessoa(int id, String nome, String email, int contato, int cpf, LocalDate data_nascimento, String endereco) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -25,7 +26,7 @@ public abstract class Pessoa {
         data_registro = LocalDateTime.now();
     }
 
-    public Pessoa(String nome, String email, int contato, int cpf, Date data_nascimento, String endereco) {
+    public Pessoa(String nome, String email, int contato, int cpf, LocalDate data_nascimento, String endereco) {
         this.nome = nome;
         this.email = email;
         this.contato = contato;
@@ -37,6 +38,10 @@ public abstract class Pessoa {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getNome() {
@@ -51,7 +56,7 @@ public abstract class Pessoa {
         return contato;
     }
 
-    public Date getData_nascimento() {
+    public LocalDate getData_nascimento() {
         return data_nascimento;
     }
 

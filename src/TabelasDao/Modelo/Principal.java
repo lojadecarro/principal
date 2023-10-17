@@ -10,7 +10,7 @@ public class Principal {
         
         ModeloDAO modeloDao = new ModeloDAO();
 
-        MarcaDAO marcaDao = new MarcaDAO();
+        MarcaDAO marcaDao = new MarcaDAO();  
 
         CategoriaModeloDAO categoriaModeloDao = new CategoriaModeloDAO();
 
