@@ -7,12 +7,12 @@ public class Principal {
     public static void main(String[] args) throws SQLException {
         CategoriaModeloDAO categoriaModeloDao = new CategoriaModeloDAO();
         
-        CategoriaModelo categoriaModelo = new CategoriaModelo(0, "Teste categoria_modelo");
+        CategoriaModelo categoriaModelo = new CategoriaModelo("cmteste");
 
         CategoriaModelo categoriaModeloCriada = categoriaModeloDao.create(categoriaModelo);
 
         System.out.println(categoriaModeloCriada.getId());
 
-        System.out.println(categoriaModeloDao.findById(1));
+        System.out.println(categoriaModeloDao.findById(3));
     }
 }

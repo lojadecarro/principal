@@ -1,5 +1,6 @@
 package Tables;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Marca {
@@ -10,10 +11,12 @@ public class Marca {
     public Marca(int id, String nome) {
         this.id = id;
         this.nome = nome;
+        this.modelos = new ArrayList<>(); 
     }
 
     public Marca(String nome) {
         this.nome = nome;
+        this.modelos = new ArrayList<>(); 
     }
 
     public void addModelo(Modelo modelo){
@@ -40,5 +43,4 @@ public class Marca {
     public String toString() {
         return "Marca [id=" + id + ", nome=" + nome + ", modelos=" + modelos + "]";
     }
-    
 }

@@ -1,5 +1,6 @@
 package Tables;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaModelo {
@@ -10,10 +11,12 @@ public class CategoriaModelo {
     public CategoriaModelo(int id, String nome) {
         this.id = id;
         this.nome = nome;
+        this.modelos = new ArrayList<>(); 
     }
 
     public CategoriaModelo(String nome) {
         this.nome = nome;
+        this.modelos = new ArrayList<>();
     }
 
     public void addModelo(Modelo modelo){

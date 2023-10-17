@@ -8,7 +8,7 @@ public class Principal{
     public static void main(String[] args) throws SQLException {
         MarcaDAO marcaDao = new MarcaDAO();
         
-        Marca marca = new Marca(0, "Ford");
+        Marca marca = new Marca(0, "Chev");
 
         Marca marcaCriada = marcaDao.create(marca);
 

@@ -6,21 +6,25 @@ public class Escala {
     private byte dias_folga;
     private String tipo;
 
-    public Escala(int id, byte dias_trabalho, byte dias_folga) {
+    public Escala(byte dias_trabalho, byte dias_folga, String tipo) {
+        this.dias_trabalho = dias_trabalho;
+        this.dias_folga = dias_folga;
+        this.tipo = tipo;
+    }
+
+    public Escala(int id, byte dias_trabalho, byte dias_folga, String tipo) {
         this.id = id;
         this.dias_trabalho = dias_trabalho;
         this.dias_folga = dias_folga;
-        setTipo();
-    }
-
-    public Escala(byte dias_trabalho, byte dias_folga) {
-        this.dias_trabalho = dias_trabalho;
-        this.dias_folga = dias_folga;
-        setTipo();
+        this.tipo = tipo;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public byte getDias_trabalho() {
