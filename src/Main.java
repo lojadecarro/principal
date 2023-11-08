@@ -1,8 +1,9 @@
+import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.mariadb.jdbc.Connection;
+import Conexao.Conexao;
 
-import TabelasDao.Conexao;
+//import org.mariadb.jdbc.Connection;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
@@ -12,6 +13,5 @@ public class Main {
         } else {
             System.out.println("Connection failed.");
         }
-
     }
 }

@@ -2,39 +2,29 @@ package Tables;
 
 public class Advertencia {
     private int id;
-    private Funcionario funcionario;
     private byte gravidade;
+    private Funcionario funcionario;
     private String motivo;
 
-    public Advertencia(int id, Funcionario funcionario, byte gravidade, String motivo) {
+    public Advertencia(int id, byte gravidade, Funcionario funcionario, String motivo) {
+        Verificacoes.verificarParametroNull(id, gravidade, funcionario, motivo);
         this.id = id;
+        setGravidade(gravidade);
         this.funcionario = funcionario;
-        this.gravidade = gravidade;
         this.motivo = motivo;
         funcionario.addAdvertencia(this);
     }
 
-    public Advertencia(Funcionario funcionario, byte gravidade, String motivo) {
+    public Advertencia(byte gravidade, Funcionario funcionario, String motivo) {
+        Verificacoes.verificarParametroNull(gravidade, funcionario, motivo);
+        setGravidade(gravidade);
         this.funcionario = funcionario;
-        this.gravidade = gravidade;
-        this.motivo = motivo;
-        funcionario.addAdvertencia(this);
-    }
-
-    public Advertencia(int id, int idfuncionario, byte gravidade, String motivo) {
-        this.id = id;
-        this.funcionario.setId(idfuncionario);
-        this.gravidade = gravidade;
         this.motivo = motivo;
         funcionario.addAdvertencia(this);
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id){
-        this.id = id;
     }
 
     public byte getGravidade() {
@@ -45,7 +35,18 @@ public class Advertencia {
         return motivo;
     }
 
-    public int getIdFuncionario(){
-        return funcionario.getId();
+    private void setGravidade(byte gravidade){
+        if (gravidade < 1 || gravidade > 5) {
+            throw new RuntimeException("A gravidade de uma advertência vai de 1 a 5.");
+        }
+        this.gravidade = gravidade;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

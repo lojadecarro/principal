@@ -5,30 +5,28 @@ import java.util.List;
 
 public class Versao {
     private int id;
-    private int nome;
+    private String nome;
     private LocalDate lancamento;
     private Modelo modelo;
+    private CategoriaCarro categoriaCarro;
     private List<Unidade> unidades;
   
-    public Versao(int id, Modelo modelo, int nome, LocalDate lancamento) {
+    public Versao(int id, String nome, LocalDate lancamento, Modelo modelo, CategoriaCarro categoriaCarro) {
+        Verificacoes.verificarParametroNull(id, nome, lancamento, modelo, categoriaCarro);
         this.id = id;
-        this.modelo = modelo;
-        this.nome = nome;
+        setNome(nome);
         setLancamento(lancamento);
+        this.modelo = modelo;
+        this.categoriaCarro = categoriaCarro;
         modelo.addVersao(this);
     }
 
-    public Versao(int nome, Modelo modelo, LocalDate lancamento) {
-        this.nome = nome;
+    public Versao(String nome, LocalDate lancamento, Modelo modelo, CategoriaCarro categoriaCarro) {
+        Verificacoes.verificarParametroNull(nome, lancamento, modelo, categoriaCarro);
+        setNome(nome);
+        setLancamento(lancamento);
         this.modelo = modelo;
-        setLancamento(lancamento);
-        modelo.addVersao(this);
-    }
-
-    public Versao(int nome, int idmodelo, LocalDate lancamento) {
-        this.nome = nome;
-        this.modelo.setId(idmodelo);
-        setLancamento(lancamento);
+        this.categoriaCarro = categoriaCarro;
         modelo.addVersao(this);
     }
 
@@ -40,15 +38,35 @@ public class Versao {
         return id;
     }
 
-    public void setId(int id){
-        this.id = id;
-    }
-
-    public int getNome() {
+    public String getNome() {
         return nome;
     }
 
-    public void setNome(int nome) {
+    public Modelo getModelo() {
+        return modelo;
+    }
+
+    public CategoriaCarro getCategoriaCarro() {
+        return categoriaCarro;
+    }
+
+    public void setNome(String nome) {
+        String[] palavras = nome.split(" ");
+        StringBuilder nomeFormatadodo = new StringBuilder();
+
+        if (nome.length() > 30 || nome.length() < 2 || nome.matches("^[a-zA-Z\\d ]+$")) {
+            throw new RuntimeException("o nome do modelo pode possuir apenas letras e digitos e deve possuir um tamanho entre 2 e 30.");
+        }
+        
+        for (String palavra : palavras) {
+            if (!palavra.isEmpty()) {
+                palavra = palavra.substring(0, 1).toUpperCase() + palavra.substring(1).toLowerCase();
+                nomeFormatadodo.append(palavra).append(" ");
+            }
+        }
+
+        nome = nomeFormatadodo.toString().replaceAll("\\s+", " ").trim();
+        this.nome = nome;
         this.nome = nome;
     }
 
@@ -56,14 +74,15 @@ public class Versao {
         return lancamento;
     }
 
-    public int getIdModelo(){
-        return this.modelo.getId();
-    }
-
     private void setLancamento(LocalDate lancamento){
         if (lancamento.isAfter(LocalDate.now()) || lancamento.getYear() < 1950) {
-            throw new RuntimeException("A data de lançamento da versão não pode ser posterior a data atual e o ano não pode ser menor que 1950.");
+            throw new RuntimeException("A data de lançamento da versão não pode ser posterior a data atual e o ano não pode ter sido antes que 1950.");
         }
+
         this.lancamento = lancamento;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

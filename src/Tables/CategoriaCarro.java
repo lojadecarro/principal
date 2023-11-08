@@ -1,42 +1,34 @@
 package Tables;
 
-import java.util.List;
-
-public class Marca {
+public class CategoriaCarro {
     private int id;
     private String nome;
-    private List<Modelo> modelos;
 
-    public Marca(int id, String nome) {
+    public CategoriaCarro(int id, String nome) {
         Verificacoes.verificarParametroNull(id, nome);
         this.id = id;
         setNome(nome);
     }
 
-    public Marca(String nome) {
+    public CategoriaCarro(String nome) {
         Verificacoes.verificarParametroNull(nome);
         setNome(nome);
-    }
-
-    public void addModelo(Modelo modelo){
-        modelos.add(modelo);
     }
 
     public int getId() {
         return id;
     }
-    
+
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
-        if (nome.length() > 50 || nome.length() < 2 || nome.matches("^[a-zA-Z]+$")) {
-            throw new RuntimeException("O nome da marca deve ter somente uma palavra com no mínimo duas letras e que não exceda 50 letras.");
+        if (nome.length() > 20 || nome.length() < 2 || !nome.matches("[\\p{L}]+")) {
+            throw new RuntimeException("Uma categoria de carros deve ter somente uma palavra com um tamanho entre 2 e 20.");
         
         }
         nome = nome.substring(0, 1).toUpperCase() + nome.substring(1).toLowerCase();
-        
         this.nome = nome;
     }
 

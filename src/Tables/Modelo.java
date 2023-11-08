@@ -6,32 +6,21 @@ public class Modelo {
     private int id;
     private String nome;
     private Marca marca;
-    private CategoriaModelo categoria_modelo;
     private List<Versao> versoes;
  
-    public Modelo(int id, Marca marca, CategoriaModelo categoriaModelo, String nome) {
+    public Modelo(int id, String nome, Marca marca) {
+        Verificacoes.verificarParametroNull(id, nome, marca);
         this.id = id;
+        setNome(nome);
         this.marca = marca;
-        this.categoria_modelo = categoriaModelo;
-        this.nome = nome;
         marca.addModelo(this);
-        categoriaModelo.addModelo(this);
     }
 
-    public Modelo(Marca marca, CategoriaModelo categoriaModelo, String nome) {
+    public Modelo(String nome, Marca marca) {
+        Verificacoes.verificarParametroNull(nome, marca);
+        setNome(nome);
         this.marca = marca;
-        this.categoria_modelo = categoriaModelo;
-        this.nome = nome;
         marca.addModelo(this);
-        categoriaModelo.addModelo(this);
-    }
-
-    //Construtor criado para o ResultSet do ModeloDAO
-    public Modelo(int id, int idmarca, int idcategoriaModelo, String nome) {
-        this.id = id;
-        this.marca.setId(idmarca);
-        this.categoria_modelo.setId(idcategoriaModelo);
-        this.nome = nome;
     }
 
     public void addVersao(Versao versao){
@@ -42,22 +31,34 @@ public class Modelo {
         return id;
     }
 
-    public void setId(int id){
-        this.id = id;
-    }
-
     public String getNome() {
         return nome;
     }
 
+    public Marca getMarca() {
+        return marca;
+    }
+
     public void setNome(String nome) {
+        String[] palavras = nome.split(" ");
+        StringBuilder nomeFormatadodo = new StringBuilder();
+
+        if (nome.length() > 40 || nome.length() < 2 || nome.matches("^[a-zA-Z\\d ]+$")) {
+            throw new RuntimeException("o nome do modelo pode possuir apenas letras e digitos e deve possuir um tamanho entre 2 e 40.");
+        }
+        
+        for (String palavra : palavras) {
+            if (!palavra.isEmpty()) {
+                palavra = palavra.substring(0, 1).toUpperCase() + palavra.substring(1).toLowerCase();
+                nomeFormatadodo.append(palavra).append(" ");
+            }
+        }
+
+        nome = nomeFormatadodo.toString().replaceAll("\\s+", " ").trim();
         this.nome = nome;
     }
 
-    public int getIdMarca(){
-        return marca.getId();
-    }
-    public int getIdCategoriaModelo(){
-        return categoria_modelo.getId();
+    public void setId(int id) {
+        this.id = id;
     }
 }

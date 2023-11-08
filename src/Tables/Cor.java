@@ -1,44 +1,22 @@
 package Tables;
 
-import java.util.List;
-
 public class Cor {
     private int id;
-    private CategoriaCor categoriaCor;
     private String nome;
-    private List<Unidade> unidades;
 
-    public Cor(int id, CategoriaCor categoriaCor, String nome) {
+    public Cor(int id, String nome) {
+        Verificacoes.verificarParametroNull(id, nome);
         this.id = id;
-        this.categoriaCor = categoriaCor;
-        this.nome = nome;
-        categoriaCor.addCor(this);
+        setNome(nome);
     }
 
-    public Cor(CategoriaCor categoriaCor, String nome) {
-        this.categoriaCor = categoriaCor;
-        this.nome = nome;
-        categoriaCor.addCor(this);
-    }
-
-    //Esse construtor foi criado apenas para a utilização
-    // do método ResultSetToCor na classe CorDAO
-    public Cor(int id, int idCategoriaCor, String nome) {
-        this.id = id;
-        this.categoriaCor.setId(idCategoriaCor);
-        this.nome = nome;
-    }
-
-    public void addUnidade(Unidade unidade){
-        unidades.add(unidade);
+    public Cor(String nome) {
+        Verificacoes.verificarParametroNull(nome);
+        setNome(nome);
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id){
-        this.id = id;
     }
 
     public String getNome() {
@@ -46,19 +24,25 @@ public class Cor {
     }
 
     public void setNome(String nome) {
+        String[] palavras = nome.split(" ");
+        StringBuilder nomeFormatadodo = new StringBuilder();
+
+        if (nome.length() > 30 || nome.length() < 3 || !nome.matches("[a-zA-Z ]+")) {
+            throw new RuntimeException("Uma cor deve ter apenas letras sem acentos e possuir um tamanho entre 2 e 30.");
+        }
+        
+        for (String palavra : palavras) {
+            if (!palavra.isEmpty()) {
+                palavra = palavra.substring(0, 1).toUpperCase() + palavra.substring(1).toLowerCase();
+                nomeFormatadodo.append(palavra).append(" ");
+            }
+        }
+
+        nome = nomeFormatadodo.toString().replaceAll("\\s+", " ").trim();
         this.nome = nome;
     }
 
-    public CategoriaCor getCategoriaCor() {
-        return categoriaCor;
+    public void setId(int id) {
+        this.id = id;
     }
-
-    public void setCategoriaCor(CategoriaCor categoriaCor) {
-        this.categoriaCor = categoriaCor;
-    }
-
-    public int getIdCategoriaCor(){
-        return categoriaCor.getId();
-    }
-    
 }

@@ -10,23 +10,23 @@ public class TesteDrive {
     private Funcionario funcionario;
     private Unidade unidade;
 
-    public TesteDrive(int id, LocalDateTime inicio, LocalDateTime fim, Cliente cliente, Funcionario funcionario, Unidade unidade) {
+    public TesteDrive(int id, Cliente cliente, Funcionario funcionario, Unidade unidade) {
+        Verificacoes.verificarParametroNull(id, cliente, funcionario, unidade);
         this.id = id;
-        this.inicio = inicio;
-        this.fim = fim;
+        inicio = LocalDateTime.now();
         this.cliente = cliente;
+        verificarFuncionarioEUnidade();
         this.funcionario = funcionario;
         this.unidade = unidade;
-        cliente.addTesteDrive(this);
     }
 
-    public TesteDrive(LocalDateTime inicio, LocalDateTime fim, Cliente cliente, Funcionario funcionario, Unidade unidade) {
-        this.inicio = inicio;
-        this.fim = fim;
+    public TesteDrive(Cliente cliente, Funcionario funcionario, Unidade unidade) {
+        Verificacoes.verificarParametroNull(id, cliente, funcionario, unidade);
+        inicio = LocalDateTime.now();
         this.cliente = cliente;
+        verificarFuncionarioEUnidade();
         this.funcionario = funcionario;
         this.unidade = unidade;
-        cliente.addTesteDrive(this);
     }
 
     public int getId() {
@@ -39,5 +39,40 @@ public class TesteDrive {
 
     public LocalDateTime getFim() {
         return fim;
+    }
+
+    public LocalDateTime marcarFimTesteDrive(){
+        if (fim != null) {
+            throw new RuntimeException("O teste drive já foi feito.");
+        }
+        fim = LocalDateTime.now();
+        return fim;
+    }
+
+    private void verificarFuncionarioEUnidade(){
+        if (funcionario.getDisponivel() == false || unidade.getDisponibilidade() == false) {
+            throw new RuntimeException("O funcionário ou a unidade não estão disponíveis no momento, talvez tenha ocorrido um erro de digitação.");
+        }
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Unidade getUnidade() {
+        return unidade;
+    }
+
+    public void inicioEFimParaResultSet(LocalDateTime inicio, LocalDateTime fim){
+        this.inicio = inicio;
+        this.fim = fim;
     }
 }
